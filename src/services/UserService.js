@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const PermissionService = require("./PermissionService");
 const UserModel = require("../models/UserModel");
 
 
@@ -34,6 +35,26 @@ const createUser = (req, res, next) => {
 
 };
 
+const updateUser = async (req, res, next) => {
+
+    try {
+        
+        PermissionService.verifyUserIsLoggedIn(req)
+        let updatedUser = await UserModel.findOneAndUpdate(
+            { id: req.user.id },
+            req.body.userUpdateForm,
+            { new: true }
+        );
+
+        res.send(updatedUser)
+
+    } catch (e) {
+
+        next(error);
+
+    }
+}
+
 const signIn = async (req, res, next) => {
 
     try {
@@ -56,10 +77,11 @@ const signIn = async (req, res, next) => {
             lastName: foundUser.lastName,
             email: foundUser.email,
             isAdmin: foundUser.isAdmin,
+            address: foundUser.address,
+            shoppingHistory: foundUser.shoppingHistory
         }
 
         res.cookie('session_token', token, { secure: false, httpOnly: true });
-
         res.send({ user: cleanFoundUser });
 
     } catch (error) {
@@ -79,6 +101,7 @@ const UserService = {
     createUser,
     signIn,
     signOut,
+    updateUser
 }
 
 module.exports = UserService;

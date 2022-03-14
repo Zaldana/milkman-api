@@ -17,4 +17,9 @@ userRouter.get(
     UserService.signOut
 )
 
+userRouter.put(
+    "/edit-user",
+    UserService.updateUser
+);
+
 module.exports = userRouter;

@@ -23,11 +23,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    address: {
+        type: String,
+    },
     isAdmin: {
         type: Boolean,
         required: true,
         default: false
     },
+
+    shoppingHistory: [
+        {
+            type: Array,
+        }
+    ]
 });
 
 const UserModel = mongoose.model('User', userSchema);
