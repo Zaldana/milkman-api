@@ -37,8 +37,7 @@ const createUser = (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
 
-    try {
-        
+    try {       
         PermissionService.verifyUserIsLoggedIn(req)
         let updatedUser = await UserModel.findOneAndUpdate(
             { id: req.user.id },
@@ -49,16 +48,44 @@ const updateUser = async (req, res, next) => {
         res.send(updatedUser)
 
     } catch (e) {
-
         next(error);
+    }
+}
 
+const updateShoppingHistory = async (req, res, next) => {
+
+    try {
+
+        PermissionService.verifyUserIsLoggedIn(req)
+        let update = await UserModel.updateOne(
+            { id: req.user.id },
+            { $push: { shoppingHistory: req.body.id }}
+        )
+
+        const foundUser = await UserModel.findOne({
+            id: req.user.id
+        })
+
+        const cleanFoundUser = {
+            id: foundUser.id,
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName,
+            email: foundUser.email,
+            isAdmin: foundUser.isAdmin,
+            address: foundUser.address,
+            shoppingHistory: foundUser.shoppingHistory
+        }
+
+        res.send({ user: cleanFoundUser })
+
+    } catch (e) {
+        next(error);
     }
 }
 
 const signIn = async (req, res, next) => {
 
     try {
-
         const userCredentials = req.body.userCredentials;
         const foundUser = await UserModel.findOne({ email: userCredentials.email, password: userCredentials.password })
 
@@ -101,7 +128,8 @@ const UserService = {
     createUser,
     signIn,
     signOut,
-    updateUser
+    updateUser,
+    updateShoppingHistory
 }
 
 module.exports = UserService;

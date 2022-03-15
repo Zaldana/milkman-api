@@ -22,4 +22,8 @@ userRouter.put(
     UserService.updateUser
 );
 
+userRouter.put(
+    "/checkout",
+    UserService.updateShoppingHistory
+);
 module.exports = userRouter;
