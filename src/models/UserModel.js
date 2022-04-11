@@ -32,11 +32,9 @@ const userSchema = new mongoose.Schema({
         default: false
     },
 
-    shoppingHistory: [
-        {
+    shoppingHistory: {
             type: Array,
-        }
-    ]
+    }
 });
 
 const UserModel = mongoose.model('User', userSchema);

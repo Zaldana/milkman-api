@@ -4,8 +4,6 @@ var cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-
-
 const userRouter = require('./routes/userRouter');
 var cors = require('cors');
 const productRouter = require('./routes/productRouter');
@@ -16,9 +14,10 @@ mongoose.connect(process.env.MONGO_DB)
     .catch(() => console.log('did NOT connect to database'));
 
 const app = express();
+
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost.localdomain:3000',
+    origin: 'http://localhost:3000',
 }));
 
 app.use(cookieParser())
@@ -45,14 +44,13 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// Attach routers to our app
+// Attach routers to app
 app.use(userRouter);
 app.use(productRouter);
 
 app.listen(3001, () => {
-    console.log('Milkman API server is listening on port 3100')
+    console.log('Milkman API server is listening on port 3001')
 })
-
 
 // ERROR HANDLER MIDDLEWARE
 app.use((error, req, res, next) => {
