@@ -42,7 +42,7 @@ const getProducts = async (req, res, next) => {
 };
 
 async function deleteProduct(req, res) {
-    
+
     try {
 
         PermissionService.verifyAdminPermission(req);

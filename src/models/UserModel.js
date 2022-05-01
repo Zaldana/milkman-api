@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
 
     shoppingHistory: {
-            type: Array,
+        type: Array,
     }
 });
 

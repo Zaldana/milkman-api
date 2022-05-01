@@ -4,7 +4,7 @@ const priceSchema = new mongoose.Schema(
     {
         regular: {
             type: Number,
-          
+
         }
     }
 )
@@ -13,7 +13,7 @@ const itemsSchema = new mongoose.Schema(
     {
         price: {
             type: priceSchema,
-          
+
         },
 
         size: {

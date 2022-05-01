@@ -34,7 +34,7 @@ const createUser = (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
 
-    try {       
+    try {
         PermissionService.verifyUserIsLoggedIn(req)
         let updatedUser = await UserModel.findOneAndUpdate(
             { id: req.user.id },
@@ -52,11 +52,11 @@ const updateUser = async (req, res, next) => {
 const updateShoppingHistory = async (req, res, next) => {
 
     try {
-       
+
         PermissionService.verifyUserIsLoggedIn(req)
         let update = await UserModel.updateOne(
             { id: req.user.id },
-            { $addToSet: { shoppingHistory: { $each: req.body.id } }}
+            { $addToSet: { shoppingHistory: { $each: req.body.id } } }
         )
 
         const foundUser = await UserModel.findOne({
