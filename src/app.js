@@ -18,11 +18,9 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: 'https://bejewelled-bonbon-6294ce.netlify.app',
+    origin: 'http://localhost:3000',
 }));
-
 app.use(cookieParser())
-
 app.use(bodyParser.json());
 
 // Authorization middleware
@@ -37,11 +35,8 @@ app.use(async (req, res, next) => {
 
     // Asigning a user to the req object
     const { userId } = jwt.verify(sessionToken, process.env.AUTH_SECRET_KEY);
-
     const user = await UserModel.findOne({ id: userId });
-
     req.user = user;
-
     next();
 });
 
