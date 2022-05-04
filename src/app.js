@@ -18,7 +18,7 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost.localdomain:3000',
+    origin: 'https://localhost.localdomain',
 }));
 app.use(cookieParser())
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ app.use('/', indexRouter);
 app.use('/api/user', userRouter);
 app.use('/api/products', productRouter);
 
-app.listen(process.env.PORT || 3001)
+app.listen(process.env.PORT || 4001)
 
 // ERROR HANDLER MIDDLEWARE
 app.use((error, req, res, next) => {
