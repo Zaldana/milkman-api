@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_DB)
 const app = express();
 
 app.use(cors({
-    origin: 'https://milkman.zaldana.studio',
+    origin: '/',
     credentials: true,
 }));
 app.use(cookieParser())
