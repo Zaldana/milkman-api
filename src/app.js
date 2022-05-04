@@ -16,10 +16,7 @@ mongoose.connect(process.env.MONGO_DB)
 
 const app = express();
 
-app.use(cors({
-    credentials: true,
-    origin: '*',
-}));
+app.use(cors("*"));
 app.use(cookieParser())
 app.use(bodyParser.json());
 
